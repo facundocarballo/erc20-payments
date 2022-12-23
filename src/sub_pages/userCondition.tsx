@@ -11,10 +11,12 @@ import {
   Spacer,
   HStack,
 } from "@chakra-ui/react";
+import { useProvider } from "../context";
+import { AlertConnectWallet } from "../components/AlertConnectWallet";
 
 export const UserCondition = () => {
   // Attributes
-  const [condition, setCondition] = React.useState(null);
+  const { isActive, daysToEndPeriod, onOpenPopUp } = useProvider();
   const warnigImage = "https://i.ibb.co/NWJsMJC/warning-red.png";
   const checkImage = "https://i.ibb.co/0JT3GVz/check.png";
   // Methods
@@ -22,31 +24,23 @@ export const UserCondition = () => {
   // Componets
   return (
     <>
-      {condition == null ? (
-        <VStack>
-          <Box h="100px" />
-          <Image
-            src="https://i.ibb.co/df4jZnR/bored-white.png"
-            alt="bored"
-            boxSize="150px"
-          />
-          <Text>Please, connect your wallet.</Text>
-        </VStack>
+      {isActive == null ? (
+        <AlertConnectWallet />
       ) : (
         <VStack>
           <Box h="10px" />
           <Image
-            src={condition ? checkImage : warnigImage}
+            src={isActive ? checkImage : warnigImage}
             alt="qualified"
             boxSize="200px"
           />
           <Text>
-            {condition
+            {isActive
               ? "Congrats!!! You are a PRO!!"
               : "Ups!! You are not a PRO. :("}
           </Text>
-          {condition ? (
-            <Slider value={30} h="100px" w="250px">
+          {isActive && daysToEndPeriod > 0 ? (
+            <Slider value={daysToEndPeriod*100/30} h="100px" w="250px">
               <SliderTrack bg="white" h="50px" borderRadius={8}>
                 <SliderFilledTrack bg="blue.300" />
                 <VStack w="full" h="full" position="absolute">
@@ -54,7 +48,7 @@ export const UserCondition = () => {
                   <HStack w="full">
                     <Box w="25%" />
                     <Text color="black" fontWeight="bold">
-                      Expires in 7 days
+                      Expires in {daysToEndPeriod} days
                     </Text>
                   </HStack>
                   <Spacer />
@@ -62,7 +56,11 @@ export const UserCondition = () => {
               </SliderTrack>
             </Slider>
           ) : (
-            <Button onClick={() => {}} bg="yellow.400">
+            isActive ? 
+            <Text>
+              You are a real PRO! Your PRO Membership is forever.
+            </Text> :
+            <Button onClick={onOpenPopUp} bg="yellow.400">
               UPGRADE TO PRO
             </Button>
           )}

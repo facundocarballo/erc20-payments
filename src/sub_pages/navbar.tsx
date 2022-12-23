@@ -1,7 +1,7 @@
 import React from "react";
 import { HStack, Spacer, Box } from '@chakra-ui/react';
 import { Title } from "../components/title";
-import { UserCard } from "../components/userCard";
+import { Card } from "../components/card";
 
 export const NavBar = () => {
     // Attributes
@@ -13,7 +13,7 @@ export const NavBar = () => {
         <HStack w='full' >
             <Title />
             <Spacer />
-            <UserCard />
+            <Card />
         </HStack>
         </>
     );
