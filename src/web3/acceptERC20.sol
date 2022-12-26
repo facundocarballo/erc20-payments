@@ -65,7 +65,7 @@ contract AcceptERC20 {
 
         uint256 toReceiveDev2 = _amount / 3;
 
-        BUSD.transfer(address(this), _amount);
+        BUSD.transferFrom(msg.sender, address(this), _amount);
 
         paid[msg.sender] = true;
 
@@ -82,7 +82,7 @@ contract AcceptERC20 {
 
         uint256 toReceiveDev2 = _amount / 3;
 
-        BUSD.transfer(address(this), _amount);
+        BUSD.transferFrom(msg.sender, address(this), _amount);
 
         paid[msg.sender] = true;
 
