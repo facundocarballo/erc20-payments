@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  VStack,
+  useColorModeValue,
   Button,
   Spacer,
   Box,
@@ -16,6 +16,7 @@ export const ButtonUpgrade = ({ title, amount, func }) => {
   const { ContractERC20, wallet, setAllValues } = useProvider();
   const [isApprove, setIsApprove] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const bg = useColorModeValue('gray.300', 'gray.600');
 
   // Methods
   const handleApproveERC20 = async () => {
@@ -84,7 +85,7 @@ export const ButtonUpgrade = ({ title, amount, func }) => {
       {loading ? (
         <Spinner />
       ) : (
-        <HStack w="full" bg="gray.600" borderRadius={6}>
+        <HStack w="full" bg={bg} borderRadius={6}>
           <Box w="10px" />
           <Text>{title}</Text>
           <Spacer />

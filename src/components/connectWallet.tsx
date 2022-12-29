@@ -1,5 +1,5 @@
 import React from "react";
-import { HStack, Box, Image, Text, Button, Spinner } from "@chakra-ui/react";
+import { HStack, Box, Image, Text, Button, Spinner, useColorModeValue } from "@chakra-ui/react";
 import { loadDappData } from "../web3/funcs";
 import { useProvider } from "../context";
 
@@ -7,6 +7,7 @@ export const ConnectWallet = () => {
   // Attributes
   const { setAllValues } = useProvider();
   const [loading, setLoading] = React.useState(false);
+  const bg = useColorModeValue('gray.300', 'gray.600');
   // Methods
   const handleConnect = async () => {
     setLoading(true);
@@ -24,7 +25,7 @@ export const ConnectWallet = () => {
         </HStack>
       ) : (
         <HStack>
-          <Button bg="gray.600" onClick={handleConnect}>
+          <Button bg={bg} onClick={handleConnect}>
             <HStack>
               <Box w="10px" h="10px" />
               <Image
