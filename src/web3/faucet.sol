@@ -32,14 +32,19 @@ contract Faucet {
     IERC20 public BUSD = IERC20(0x1027b66cb2Be166A6ABfB12b9cFBBE7a83911151);
     uint256 constant public AMOUNT_TO_TRANSFER = 15 * 10 ** 18;
 
-    mapping(address => uint256) timestamp_mark;
+    mapping(address => uint256) timestamp_to_next_reward;
 
     constructor() {}
 
     function claim() public 
     {
-        require(block.timestamp > (timestamp_mark[msg.sender] + 1 days), "Try it later...");
+        require(canClaim(msg.sender), "Try it later...");
         BUSD.transfer(msg.sender, AMOUNT_TO_TRANSFER);
-        timestamp_mark[msg.sender] = block.timestamp + 1 days;
+        timestamp_to_next_reward[msg.sender] = block.timestamp + 1 days;
+    }
+
+    function canClaim(address wallet) public view returns(bool) 
+    {
+        return block.timestamp > timestamp_to_next_reward[wallet];
     }
 }

@@ -7,6 +7,8 @@ export const DappProvider = (props) => {
   const [wallet, setWallet] = React.useState(null);
   const [ContractAcceptERC20, setContractAcceptERC20] = React.useState(null);
   const [ContractERC20, setContractERC20] = React.useState(null);
+  const [ContractFaucet, setContractFaucet] = React.useState(null);
+  const [canClaimFaucet, setCanClaimFaucet] = React.useState(null);
   const [isActive, setIsActive] = React.useState(null);
   const [daysToEndPeriod, setDaysToEndPeriod] = React.useState(null);
   const [rewardDev1, setRewardDev1] = React.useState(null);
@@ -27,6 +29,9 @@ export const DappProvider = (props) => {
     setDaysToEndPeriod(data.daysToEndPeriod);
     setRewardDev1(data.rewardDev1);
     setRewardDev2(data.rewardDev2);
+    // Faucet
+    setContractFaucet(data.ContractFaucet);
+    setCanClaimFaucet(data.canClaimFaucet);
   };
 
   const values = {
@@ -46,7 +51,9 @@ export const DappProvider = (props) => {
     cancelRef_PopUp,
     setAllValues,
     rewardDev1,
-    rewardDev2
+    rewardDev2,
+    canClaimFaucet,
+    ContractFaucet
   };
 
   return <DappContext.Provider value={values} {...props} />;

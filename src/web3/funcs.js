@@ -1,6 +1,7 @@
 import Web3 from "web3";
 import ERC20 from './ABI/ERC20.json';
 import AcceptERC20 from './ABI/AcceptERC20.json';
+import Faucet from "./ABI/Faucet.json";
 
 // WEB3 CONFIG
 const RPC = "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161" //"https://data-seed-prebsc-1-s1.binance.org:8545/"; //"https://bsc-dataseed.binance.org/";
@@ -11,6 +12,7 @@ Contract.setProvider(RPC);
 export const Addresses = {
     acceptERC20: "0xAB79A38eb344Aa6Fd4807F628B69651e9f09Db0B", //"0xC8c316f83bB17ad954c0725eB267B10cD27efCAD",
     erc20: "0x1027b66cb2Be166A6ABfB12b9cFBBE7a83911151", //"0x2E50a44F2C744E2BcDe025028622d6349115D7Bf",
+    faucet: "0x8F0Fc17F84b289D70d32d8088B52B863694A84d4",
     dev1: "0x9060723c22dE586c2fA5eFa07A7743F6f4a935f5",
     dev2: "0x0b4e72a8f9920569cA880DA13B88B0210AB5Bf00"
 };
@@ -35,9 +37,14 @@ export const loadDappData = async () => {
     const rewardDev1 = Number(web3.utils.fromWei(rewardDev1_wei, 'ether')).toFixed(2);
     const rewardDev2 = Number(web3.utils.fromWei(rewardDev2_wei, 'ether')).toFixed(2);
 
+    // Faucet
+    const { ContractFaucet, canClaimFaucet } = await getFaucetData(wallet);
+
     return { wallet, ContractAcceptERC20, 
         ContractERC20, isActive, 
-        daysToEndPeriod, rewardDev1, rewardDev2 };
+        daysToEndPeriod, rewardDev1, rewardDev2,
+        ContractFaucet, canClaimFaucet
+    };
 }
 
 const getDaysToClosePeriod = async (ContractAcceptERC20, wallet) => {
@@ -50,6 +57,13 @@ const getDaysToClosePeriod = async (ContractAcceptERC20, wallet) => {
     const days = Math.trunc((timestamp_to_end / (24*60*60)));
 
     return days;
+}
+
+const getFaucetData = async (wallet) => {
+    const ContractFaucet = new Contract(Faucet.output.abi, Addresses.faucet);
+    const canClaimFaucet = await ContractFaucet.methods.canClaim(wallet).call();
+
+    return { ContractFaucet, canClaimFaucet };
 }
 
 // WEB3 FUNCS

@@ -37,6 +37,25 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "wallet",
+						"type": "address"
+					}
+				],
+				"name": "canClaim",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "claim",
 				"outputs": [],
@@ -72,11 +91,11 @@
 	},
 	"sources": {
 		"contracts/YouTube/Faucet.sol": {
-			"keccak256": "0x9217ec1bb258b577e635df800fe866c5d76db18aab444abd9e45c6af488dcae7",
+			"keccak256": "0xa1aa9ffd9587506528aaca7b15bd0777b8827c87095dc97dba63208738a15350",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://53c8789c0b3da1714bbf4c53a91c82dde4ac947a6d361ada32314ae207ce0391",
-				"dweb:/ipfs/QmYx884Xddn2ryh3A6ecU4bgr5NBeyVwwzfpbGaLSbEfsX"
+				"bzz-raw://ba554233ffd6ed0d9415b2d4788e529844b094b8f45e3610d9077029f2c49cca",
+				"dweb:/ipfs/QmTgsEANPPiW579gTPb8VpBKNcK4kYbygtb9zWCAxh3wny"
 			]
 		}
 	},
